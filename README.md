@@ -32,15 +32,54 @@ Instructor is a VS Code extension designed to augment the OUTLINE view, enabling
 - **Open Source & GitHub Integration:**
 	- Designed for open source collaboration and GitHub workflows.
 
-## Implementation Plan
 
-1. **Research VS Code API capabilities for OUTLINE augmentation.**
-2. **If direct augmentation is not possible, implement a new INSTRUCTOR OUTLINE view mirroring the default OUTLINE.**
-3. **Add context menus, label logic, and annotation parsing.**
-4. **Integrate with breakpoints/logpoints and provide jump-to-code actions.**
-5. **Ensure accessibility and color contrast compliance.**
-6. **Document conventions for code annotations in various languages.**
-7. **Prepare for GitHub open source release.**
+## Usage
+
+### Labeling & Annotation
+
+- Right-click any Instructor Outline entry to assign a label (Hidden, Locked, Blocked, Governed, Sectioned, Flagged).
+
+- Use annotation comments in your code to auto-label sections:
+	- **HTML:** `<!-- #Hidden -->`, `<!-- IN:#Locked -->`
+	- **JS/TS/C#/Java:** `// #Blocked`, `//IN:#Governed`
+	- **CSS/Java/C#:** `/* #Sectioned */`
+	- **Python:** `# #Hidden`
+
+### Flags
+
+- Right-click an entry and select "Generate Flag" to create a custom flag with a friendly name and color.
+- Use "Bulk Toggle Flags" to change the state of all flags at once (e.g., Blocked, Hidden, Normal).
+- Use "Filter Flags" to show only flagged sections.
+
+### Filtering & Navigation
+
+- Use the command palette to filter by label or show only flagged sections.
+- Click or use the context menu to jump to code for any outline entry.
+
+### Accessibility
+
+- All icons and labels use high-contrast colors and ARIA labels for screen readers.
+- Keyboard navigation and quick toggles are supported for all actions.
+
+## Annotation Conventions
+
+| Language      | Comment Style Example                |
+|-------------- |-------------------------------------|
+| HTML          | `<!-- #Hidden -->`                  |
+| JS/TS/C#/Java | `// #Locked` or `//IN:#Blocked`     |
+| CSS/Java/C#   | `/* #Governed */`                   |
+| Python        | `# #Sectioned`                      |
+
+Labels supported: Hidden, Locked, Blocked, Governed, Sectioned, Flagged
+
+## Accessibility Details
+
+- All features are designed for keyboard and screen reader accessibility.
+- Custom SVG icons are color-contrast tested.
+
+## Release & Contribution
+
+See CONTRIBUTING.md for guidelines (to be created). Please file issues for bugs or feature requests.
 
 ## Requirements
 

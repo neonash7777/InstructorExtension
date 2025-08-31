@@ -2,22 +2,84 @@
   "name": "instructor-extension",
   "displayName": "Instructor",
   "description": "Augments the OUTLINE view or provides a new INSTRUCTOR OUTLINE with additional features for teaching and code navigation. Prepares for GitHub integration and open source release.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
-  "vscode": "^1.102.0"
+    "vscode": "^1.102.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onViewItem:instructorOutline"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
+      { "command": "InstructorExtension.helloWorld", "title": "Hello World" },
+      { "command": "instructorOutline.labelNormal", "title": "Label: Normal" },
+      { "command": "instructorOutline.labelHidden", "title": "Label: Hidden" },
+      { "command": "instructorOutline.labelLocked", "title": "Label: Locked" },
+      { "command": "instructorOutline.labelBlocked", "title": "Label: Blocked" },
+      { "command": "instructorOutline.labelGoverned", "title": "Label: Governed" },
+      { "command": "instructorOutline.labelSectioned", "title": "Label: Sectioned" },
+      { "command": "instructorOutline.generateFlag", "title": "Generate Flag" },
+      { "command": "instructorOutline.filterLabel", "title": "Filter by Label", "icon": { "light": "resources/filter.svg", "dark": "resources/filter.svg" } },
+      { "command": "instructorOutline.clearFilter", "title": "Clear Filter", "icon": { "light": "resources/hidden.svg", "dark": "resources/hidden.svg" } },
+      { "command": "instructorOutline.refresh", "title": "Refresh", "icon": { "light": "resources/refresh.svg", "dark": "resources/refresh.svg" } },
+      { "command": "instructorOutline.filterFlags", "title": "Filter Flags", "icon": { "light": "resources/tag.svg", "dark": "resources/tag.svg" } },
+      { "command": "instructorOutline.bulkToggleFlags", "title": "Bulk Toggle Flags", "icon": { "light": "resources/settings.svg", "dark": "resources/settings.svg" } },
+      { "command": "instructorOutline.syncOutline", "title": "Sync Outline", "icon": { "light": "resources/refresh.svg", "dark": "resources/refresh.svg" } },
+      { "command": "instructorOutline.collapseAll", "title": "Collapse All", "icon": { "light": "$(chevron-up)", "dark": "$(chevron-up)" } },
+      { "command": "instructorOutline.expandAll", "title": "Expand All", "icon": { "light": "$(chevron-down)", "dark": "$(chevron-down)" } },
+      { "command": "instructorOutline.commentSection", "title": "Comment Section" },
+      { "command": "instructorOutline.uncommentSection", "title": "Uncomment Section" },
+      { "command": "instructorOutline.expandSection", "title": "Expand Section" },
+      { "command": "instructorOutline.collapseSection", "title": "Collapse Section" },
       {
-        "command": "InstructorExtension.helloWorld",
-        "title": "Hello World"
+        "command": "instructorOutline.expandCollapseAllWithLabel",
+        "title": "Expand/Collapse All With Label",
+        "icon": {
+          "light": "resources/sectioned.svg",
+          "dark": "resources/sectioned.svg"
+        }
       }
-    ]
+    ],
+    "menus": {
+      "view/item/context": [
+        { "command": "instructorOutline.labelNormal", "when": "view == instructorOutline", "group": "instructorLabels@1" },
+        { "command": "instructorOutline.labelHidden", "when": "view == instructorOutline", "group": "instructorLabels@2" },
+        { "command": "instructorOutline.labelLocked", "when": "view == instructorOutline", "group": "instructorLabels@3" },
+        { "command": "instructorOutline.labelBlocked", "when": "view == instructorOutline", "group": "instructorLabels@4" },
+        { "command": "instructorOutline.labelGoverned", "when": "view == instructorOutline", "group": "instructorLabels@5" },
+        { "command": "instructorOutline.labelSectioned", "when": "view == instructorOutline", "group": "instructorLabels@6" },
+        { "command": "instructorOutline.generateFlag", "when": "view == instructorOutline", "group": "flag@1" },
+        { "command": "instructorOutline.bulkToggleFlags", "when": "view == instructorOutline", "group": "flag@2" },
+        { "command": "instructorOutline.filterFlags", "when": "view == instructorOutline", "group": "flag@3" },
+        { "command": "instructorOutline.expandSection", "when": "view == instructorOutline", "group": "navigation@7" },
+        { "command": "instructorOutline.collapseSection", "when": "view == instructorOutline", "group": "navigation@8" },
+        { "command": "instructorOutline.commentSection", "when": "view == instructorOutline", "group": "navigation@9" },
+        { "command": "instructorOutline.uncommentSection", "when": "view == instructorOutline", "group": "navigation@10" }
+      ],
+      "view/title": [
+        { "command": "instructorOutline.filterLabel", "when": "view == instructorOutline", "group": "navigation@1" },
+        { "command": "instructorOutline.clearFilter", "when": "view == instructorOutline", "group": "navigation@2" },
+        { "command": "instructorOutline.filterFlags", "when": "view == instructorOutline", "group": "navigation@3" },
+        { "command": "instructorOutline.bulkToggleFlags", "when": "view == instructorOutline", "group": "navigation@4" },
+        { "command": "instructorOutline.collapseAll", "when": "view == instructorOutline", "group": "navigation@5" },
+        { "command": "instructorOutline.expandAll", "when": "view == instructorOutline", "group": "navigation@6" },
+        { "command": "instructorOutline.syncOutline", "when": "view == instructorOutline", "group": "navigation@7", "icon": { "light": "resources/refresh.svg", "dark": "resources/refresh.svg" } },
+        { "command": "instructorOutline.expandCollapseAllWithLabel", "when": "view == instructorOutline", "group": "navigation@8" }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "instructorOutline",
+          "name": "Instructor Outline",
+          "icon": "resources/instructor-outline.svg"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -31,7 +93,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-  "@types/vscode": "^1.102.0",
+    "@types/vscode": "^1.102.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
